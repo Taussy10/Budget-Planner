@@ -2,10 +2,12 @@ import { StyleSheet, Text, View ,Pressable, TouchableOpacity,RefreshControl , Al
 import React,{useEffect, useState , useCallback} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { supabase } from '../utils/SupabaseConfig';
-import Colors from '../utils/Colors';
-import ItemList from '../Components/CategoryDetailsComp/ItemList';
 import { AntDesign ,Feather } from '@expo/vector-icons';
 import { scale , moderateScale , verticalScale } from 'react-native-size-matters';
+// Componenet
+import ItemList from '../Components/CategoryDetailsComp/ItemList';
+import Colors from '../utils/Colors';
+
 // ()
 const CategoryDetails = ({route, navigation}) => {
   useEffect(() => {
@@ -15,12 +17,7 @@ const CategoryDetails = ({route, navigation}) => {
 
   const [refreshing, setRefreshing] = useState(false);
   
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  }, []);
+ 
 
   
   //  progresBar totoal
@@ -38,30 +35,29 @@ const CategoryDetails = ({route, navigation}) => {
 
 // console.log(items[0].cost ," Items");
 
-console.log(id , "Got id");
-console.log(items , "Itemses");
+// console.log(id , "Got id");
+// console.log(items , "Itemses");
 
 const getCategoryDetail = async ()=> {
-  try {
+  // setRefreshing(true)
     let {data:detail , error} = await supabase
     .from('Category')
     .select('*,CategoryItems(*)')
     .eq('id', id )
 
-    console.log("Cat" , detail);
+    console.log( detail[0] ,"CategoryDetails");
     // because we want only data of first array
     setCategoryData(detail[0])
-  } catch (error) {
-
-  }
+    // setRefreshing(false) 
 }
+//  categoryData&&
 
 const deleteCategory = async () => {
   const { error } = await supabase
   .from('Category')
   .delete()
   .eq('id', id)
-    console.log(error , "error");  
+    // console.log(error , "error");  
     // This is will delete only when there will be no 
     // categoryItems because Category is attached to categoryItems so you can't 
    // w/o deleting 
@@ -99,12 +95,13 @@ const calculateTotalPerc = () => {
   return (
     
     <SafeAreaView style={styles.container}>
-    {/* <ScrollView
+    <ScrollView
       
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-      > */}
+    //    refreshControl={
+    //   //    <RefreshControl refreshing={refreshing} onRefresh={getCategoryDetail} />
+    //   //  
+    // }
+      >
      <View style={styles.categoryContainer} >
 
 <View style={{flexDirection:'row', }} >
@@ -163,7 +160,7 @@ const calculateTotalPerc = () => {
             </Pressable>
             
             </View>
-            {/* </ScrollView> */}
+            </ScrollView>
     </SafeAreaView>
    
 

@@ -14,12 +14,9 @@ const ItemList = ({items}) => {
 
   const [refreshing, setRefreshing] = useState(false);
   
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  }, []);
+  const onRefresh = () => {
+    items&&setRefreshing(true); 
+   } 
 
 
 
@@ -46,7 +43,7 @@ const ItemList = ({items}) => {
       renderItem={({item}) => {
        
         let itemId = item.id;
-        console.log(itemId , "IDd");
+        // console.log(itemId , "IDd");
         const deleteItems = async () => {
           const { error } = await supabase
           .from('CategoryItems')

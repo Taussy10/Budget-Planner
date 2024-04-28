@@ -17,7 +17,6 @@ const Home = ({ navigation }) => {
   const [particularCategoryDataSave, setParticularCategoryDataSave] = useState([]);
 
   // for refreshing functionlity
-   const [loading, setloading] = useState(false)
 
 
   //  useEffect(() => {
@@ -28,21 +27,21 @@ const Home = ({ navigation }) => {
     getCategoryItems()
    }, [])
 
-   useEffect(() => {
-    getCategorydata()
-   }, [])
+  //  useEffect(() => {
+  //   getCategorydata()
+  //  }, [])
 
 
 
 
    const [refreshing, setRefreshing] = useState(false);
   
-   const onRefresh = useCallback(() => {
-     setRefreshing(true);
-     setTimeout(() => {
-       setRefreshing(false);
-     }, 2000);
-   }, []);
+  //  const onRefresh = useCallback(() => {
+  //    setRefreshing(true);
+  //    setTimeout(() => {
+  //      setRefreshing(false);
+  //    }, 2000);
+  //  }, []);
 
   //  useEffect(() => {
   //   filterData()
@@ -54,31 +53,30 @@ const Home = ({ navigation }) => {
 
  
 
-  const getCategorydata = async () => {
-    try {
-      let { data: Category, error } = await supabase
-        .from('Category')
-        .select('*')
-      console.log(Category, "getCategorydata");
-    } catch (error) {
-      console.error('Error fetching category list:', error.message);
-    }
-  };
+  // const getCategorydata = async () => {
+  //   setRefr
+  //     let { data: Category, error } = await supabase
+  //       .from('Category')
+  //       .select('*')
+  //     console.log(Category, "getCategorydata");
+   
+  //   Category&&setRefreshing(false);
+  // };
 
   
 
   const getCategoryItems  = async () => {
-    try {
+    setRefreshing(true);
       let { data: Category, error } = await supabase
         .from('Category')
         .select(`*, CategoryItems(*)`)
         .eq('created_by', 'tausif00100@gmail.com');
 
       setCategoryData(Category);
-      console.log(Category, "getCategoryData");
-    } catch (error) {
-      console.error('Error fetching category list:', error.message);
-    }
+      console.log(Category, "CategoryItems ");
+
+      Category&&setRefreshing(false);
+
   };
 
 
@@ -89,11 +87,13 @@ const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container }>
       <ScrollView 
-        // contentContainerStyle={styles.scrollView}
+        // contentCont ainerStyle={styles.scrollView}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                          // Here state of Refreshing         Here the function you want to show data through
+          <RefreshControl refreshing={refreshing } onRefresh={ () => getCategoryItems()}  />
         }
       >
+     
 
 
       <Header/>
