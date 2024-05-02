@@ -17,7 +17,6 @@ const CategoryDetails = ({route, navigation}) => {
 
   const [refreshing, setRefreshing] = useState(false);
   
- 
 
   
   //  progresBar totoal
@@ -31,26 +30,23 @@ const CategoryDetails = ({route, navigation}) => {
 
   // name,
   const { name, color,icon, assigned_budget, items , id } = route.params;
-// console.log(items, "number of items");
+  // const hello  = route.params
+  // // console.log(hello , "HEllo");
 
-// console.log(items[0].cost ," Items");
-
-// console.log(id , "Got id");
-// console.log(items , "Itemses");
-
+// console.log(items , "HIHELlo");
 const getCategoryDetail = async ()=> {
-  // setRefreshing(true)
+  setRefreshing(true)
     let {data:detail , error} = await supabase
     .from('Category')
     .select('*,CategoryItems(*)')
     .eq('id', id )
 
     console.log( detail[0] ,"CategoryDetails");
+    console.log( detail ,"CategoryDetailss");
     // because we want only data of first array
     setCategoryData(detail[0])
-    // setRefreshing(false) 
+   getCategoryDetail&&setRefreshing(false) 
 }
-//  categoryData&&
 
 const deleteCategory = async () => {
   const { error } = await supabase
@@ -97,10 +93,9 @@ const calculateTotalPerc = () => {
     <SafeAreaView style={styles.container}>
     <ScrollView
       
-    //    refreshControl={
-    //   //    <RefreshControl refreshing={refreshing} onRefresh={getCategoryDetail} />
-    //   //  
-    // }
+        refreshControl={
+       <RefreshControl refreshing={refreshing} onRefresh={getCategoryDetail} />
+    }
       >
      <View style={styles.categoryContainer} >
 
