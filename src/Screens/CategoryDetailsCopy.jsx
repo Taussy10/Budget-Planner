@@ -34,26 +34,8 @@ const CategoryDetailsCopy = ({route, navigation}) => {
 
   // name,
   const { name, color,icon, assigned_budget, items , CatId } = route.params;
-  // const hello  = route.params
-  // // console.log(hello , "HEllo");
-
-  // console.log(items.cost , "ITemssf");
-// console.log(items , "HIHELlo");
-// const getCategoryDetail = async ()=> {
-//   setRefreshing(true)
-//     let {data:detail , error} = await supabase
-//     .from('Category')
-//     .select('*,CategoryItems(*)')
-//     .eq('id', id )
-
-//     console.log( detail[0] ,"CategoryDetails");
-//     // because we want only data of first array
-//     setCategoryData(detail[0])
-//    getCategoryDetail&&setRefreshing(false) 
-// }
 
 const getCategoryItemsDetail = async ()=> {
-  setRefreshing(true)
 let { data: CategoryItems, error } = await supabase
   .from('CategoryItems')
   .select('*')
@@ -84,11 +66,11 @@ const onDeleteCategory = () => {
 
 
 const calculateTotalPerc = () => {
-  setRefreshing(true)
+  // setRefreshing(true)
 
-  if (items &&  items.length > 0) {
+  if (categoryData &&  categoryData.length > 0) {
     let total = 0;
-    items.forEach(value => {
+    categoryData.forEach(value => {
       total += value?.cost || 0;
     });
     setTotalCost(total);
@@ -99,21 +81,19 @@ const calculateTotalPerc = () => {
   } else {
     console.log("No items are present");
   }
-  //  calculateTotalPerc&&setRefreshing(false) 
+
 
 };
 
-// console.log(categoryData , "HI HEllo");
 
-// console.log();
 
   return (
     
     <SafeAreaView style={styles.container}>
     <ScrollView
-      
+      // ()
         refreshControl={
-       <RefreshControl refreshing={refreshing} onRefresh={getCategoryItemsDetail} />
+       <RefreshControl refreshing={refreshing} onRefresh={getCategoryItemsDetail } />
     }
       >
      <View style={styles.categoryContainer} >
@@ -164,8 +144,7 @@ const calculateTotalPerc = () => {
         <Text style={{ fontSize: moderateScale(20), fontFamily: 'Outfit-Medium',fontSize: 30,marginTop: 10,}}>Item List</Text>
         <View style={{ flex: 1, }}>
         <ItemList categoryData= {categoryData}  />
-        {/* <ItemList items = {items}  /> */}
-
+     
         </View>
 
         <View style={styles.btnContainer}>
@@ -200,7 +179,7 @@ const styles = StyleSheet.create({
     justifyContent:'space-between',
     flexDirection:'row',
     padding:moderateScale(15),
-    // elevation: 1,
+    
   },
   iconContainer:{
     height: verticalScale(60),
@@ -218,18 +197,13 @@ const styles = StyleSheet.create({
 },
 
   progressBarSubContainer:{
-    // width: '40%',
-    height: moderateScale(20),
+        height: moderateScale(20),
     backgroundColor: Colors.PRIMARY,
     borderRadius: moderateScale(18),
 } ,
 btnContainer:{
-    // backgroundColor:'green',
-    // position: 'absolute',
-    // bottom: -20,
     left:250,
     borderColor:'red',
-    // marginTop: 10,
 }
 
 })
