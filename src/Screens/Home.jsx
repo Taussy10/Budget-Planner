@@ -18,8 +18,7 @@ const Home = ({ navigation }) => {
  
    useEffect(() => {
     getCategoryData()
-    // getCategorydata()
-   }, [])
+   }, [getCategoryData])
 
 
 

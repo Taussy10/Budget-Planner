@@ -3,7 +3,7 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {useFonts} from 'expo-font'
-
+import { Entypo ,MaterialCommunityIcons  } from '@expo/vector-icons';
 import Home from '../Screens/Home';
 import { useEffect } from 'react';
 import Login from '../Screens/Auth/Login';
@@ -38,7 +38,7 @@ const Routes = () => {
 
 
   return (
-   <Stack.Navigator  initialRouteName='Home' screenOptions={{headerShown:false}}>
+   <Stack.Navigator  initialRouteName='Home' screenOptions={{headerShown:false ,}}>
    <Stack.Screen name='Tab' component={MyTab} />
     <Stack.Screen name='Login' component={Login} />
     {/* <Stack.Screen name="Home" component={Home} /> */}
@@ -61,8 +61,23 @@ const Routes = () => {
 const MyTab = () => {
   return (
       <Tab.Navigator screenOptions={{headerShown:false}} >
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Screen name="Home" component={Home} 
+ options={{
+  tabBarLabel: 'Home',
+  // tabBarIcon: ({ color, size }) => (
+  //   <MaterialCommunityIcons name="home" color={color} size={size} />
+  // ),
+  tabBarIcon:  ({color , }) => (
+    <Entypo name="home" size={24} color="black" />
+  )
+}}
+      
+      />
+        <Tab.Screen name="Profile" component={Profile} 
+        options={{tabBarIcon: ({color }) => 
+<MaterialCommunityIcons name="account" size={24} color="black" />
+        }}
+        />
       </Tab.Navigator>
   )
 }
