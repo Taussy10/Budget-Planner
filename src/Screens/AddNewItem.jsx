@@ -8,7 +8,6 @@ import Input from '../Components/Input';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Entypo ,FontAwesome ,MaterialIcons, Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import { PrivateValueStore } from '@react-navigation/native';
 import { supabase } from '../utils/SupabaseConfig';
 // impport supabase
 // for supbse uploding file
@@ -23,6 +22,12 @@ const AddNewItem = ({route, navigation}) => {
 
   const { categoryId  } = route.params;
   // console.log(categoryId, "Id");
+useEffect(() => {
+  insertDataTest()
+
+}, [])
+
+
 
   const [image, setImage] = useState(placeholder)
   const [previewImage, setPreviewImage] = useState(placeholder)
@@ -114,9 +119,11 @@ let { data:data , error } = await supabase
   } 
   ])
   .select()
-  setloading(true)
   ToastAndroid.show("New Item Added ",ToastAndroid.SHORT) 
   // when data sent
+  setloading(false)
+  // navigation.navigate("CategoryDetails",{category_id: categoryId,  })
+  navigation.goBack()
           console.log(insertedRows, error, "Rows r inserrted");
              
 
@@ -150,6 +157,17 @@ let { data: deletionResult, error } = await supabase
 console.log(deletionResult, error , "deleted Files");
   }
  
+  const insertDataTest = async () => {
+    const { data:insertDataTest, error } = await supabase
+      .from('CategoryItems')
+      .insert([
+        {  name: categoryName,},
+        // { some_column: 'otherValue' },
+      ])
+      .select()
+      console.log(insertDataTest, "insertDataTest");
+    
+    }     
  
   return (
 
@@ -228,7 +246,8 @@ console.log(deletionResult, error , "deleted Files");
 
 
 <TouchableOpacity 
-onPress={() => { navigation.goBack() ,uploadfile(); }}
+// navigation.navigate("CategoryDetails") ,
+onPress={() => {  uploadfile(); }}
 style={styles.btn}
 // if both are false then it's disable 
 // this how we disable the button with conditions

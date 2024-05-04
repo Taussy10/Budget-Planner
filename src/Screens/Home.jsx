@@ -14,39 +14,19 @@ import CategoryList from '../Components/Home/CategoryList'
 
 const Home = ({ navigation }) => {
   const [categoryData, setCategoryData] = useState([]);
-  const [particularCategoryDataSave, setParticularCategoryDataSave] = useState([]);
 
-  // for refreshing functionlity
-
-
-  //  useEffect(() => {
-  //   particularCategoryData()
-  //  }, [])
-
+ 
    useEffect(() => {
     getCategoryItems()
+    // getCategorydata()
    }, [])
-
-  //  useEffect(() => {
-  //   getCategorydata()
-  //  }, [])
 
 
 
 
    const [refreshing, setRefreshing] = useState(false);
   
-  //  const onRefresh = useCallback(() => {
-  //    setRefreshing(true);
-  //    setTimeout(() => {
-  //      setRefreshing(false);
-  //    }, 2000);
-  //  }, []);
-
-  //  useEffect(() => {
-  //   filterData()
-  //  }, [])
-   
+  
 
 
 
@@ -64,7 +44,7 @@ const Home = ({ navigation }) => {
   // };
 
   
-
+// For getting CategoryItems details 
   const getCategoryItems  = async () => {
     setRefreshing(true);
       let { data: Category, error } = await supabase
@@ -73,9 +53,8 @@ const Home = ({ navigation }) => {
         .eq('created_by', 'tausif00100@gmail.com');
 
       setCategoryData(Category);
-      console.log(Category, "CategoryItems ");
-
       Category&&setRefreshing(false);
+      console.log(Category, "getCategoryItems ");
 
   };
 

@@ -10,13 +10,13 @@ import Colors from '../../utils/Colors'
 
 
 
-const ItemList = ({items}) => {
+const ItemList = ({categoryData}) => {
 
   const [refreshing, setRefreshing] = useState(false);
   
-  const onRefresh = () => {
-    items&&setRefreshing(true); 
-   } 
+  // const onRefresh = () => {
+  //   items&&setRefreshing(true); 
+  //  } 
 
 
 
@@ -32,15 +32,18 @@ const ItemList = ({items}) => {
     <SafeAreaView style={styles.container}>
     <ScrollView
         // contentContainerStyle={styles.scrollView}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
+        // refreshControl={
+        //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        // }
         >
 
-      { items &&  items.length > 0? 
+      {/* { items &&  items.length > 0?    */}
+      { categoryData && categoryData.length > 0?
+
+      
       <FlatList 
       // ItemSeparatorComponent={}
-      data={items}
+      data={categoryData}
       keyExtractor={item => item.id}
       renderItem={({item}) => {
        
@@ -73,7 +76,6 @@ const ItemList = ({items}) => {
       <View style={{flexDirection:'row', gap:(20) , alignItems:'center' }} >
 
       <View style={{ marginLeft: scale(20) ,  }}>
-      {/* <Text style={{fontFamily: 'Outfit-Regular' , fontSize:15,}}>{item?.item?.length} Items</Text> */}
       <Image source={{uri: item.image}} style={styles.image} />
       </View>
       <Text style={{fontFamily: 'Outfit-Bold' , fontSize: 20}}>{item?.name}</Text>

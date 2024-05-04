@@ -4,7 +4,6 @@ import { Feather } from '@expo/vector-icons';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 // ()
 const CategoryList = ({ categoryData , navigation  }) => {
-  console.log(categoryData, "hello");
   return (
     <View style={{ flex: 1 }}>
    <Text style={{fontSize: 25 , marginBottom: 10 , fontWeight: 'bold' }}>Latest Budget</Text>
@@ -12,14 +11,14 @@ const CategoryList = ({ categoryData , navigation  }) => {
         return (
           <TouchableOpacity
           key={index}
-          onPress={ () => navigation.navigate("CategoryDetails", {
+          onPress={ () => navigation.navigate("CategoryDetailsCopy", {
             name:category.name,
             color:category.color,
             icon:category.icon,
             assigned_budget: category.assigned_budget,
              items: category.CategoryItems ,
-            id: category.id })}  
-          >
+            id: category.id 
+          })}  >
           <View  style={styles.container} >
 
             <View style={{flexDirection:'row', }} >

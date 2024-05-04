@@ -12,7 +12,8 @@ import Profile from '../Screens/Profile';
 import AddNewCategory from '../Screens/AddNewCategory';
 import AddNewItem from '../Screens/AddNewItem';
 import CategoryDetails from '../Screens/CategoryDetails';
-import Test from '../Components/Test';
+// import Test from '../Components/Test';
+import CategoryDetailsCopy from '../Screens/CategoryDetailsCopy';
 const Stack = createNativeStackNavigator() 
 const Tab = createBottomTabNavigator();
 const Routes = () => {
@@ -47,6 +48,9 @@ const Routes = () => {
     <Stack.Screen name="CategoryDetails" component={CategoryDetails}/>
         <Stack.Screen name="AddNewItem" component={AddNewItem}
     options={{headerShown:true, title:'Add New Item'}}
+    />
+        <Stack.Screen name="CategoryDetailsCopy" component={CategoryDetailsCopy}
+ 
     />
     {/* <Stack.Screen name='Test' component={Test} /> */}
    </Stack.Navigator>

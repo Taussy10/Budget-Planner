@@ -9,11 +9,10 @@ import ItemList from '../Components/CategoryDetailsComp/ItemList';
 import Colors from '../utils/Colors';
 
 // ()
-const CategoryDetails = ({route, navigation}) => {
+const CategoryDetailsCopy = ({route, navigation}) => {
   useEffect(() => {
-    getCategoryDetail()
+    // getCategoryDetail()
     calculateTotalPerc()
-    Test()
   }, [])
 
   const [refreshing, setRefreshing] = useState(false);
@@ -35,25 +34,28 @@ const CategoryDetails = ({route, navigation}) => {
   // // console.log(hello , "HEllo");
 
 // console.log(items , "HIHELlo");
-const getCategoryDetail = async ()=> {
+// const getCategoryDetail = async ()=> {
+//   setRefreshing(true)
+//     let {data:detail , error} = await supabase
+//     .from('Category')
+//     .select('*,CategoryItems(*)')
+//     .eq('id', id )
+
+//     console.log( detail[0] ,"CategoryDetails");
+//     // because we want only data of first array
+//     setCategoryData(detail[0])
+//    getCategoryDetail&&setRefreshing(false) 
+// }
+
+const getCategoryItemsDetail = async ()=> {
   setRefreshing(true)
-    let {data:detail , error} = await supabase
-    .from('Category')
-    .select('*,CategoryItems(*)')
-    .eq('id', id )
-
-    console.log( detail[0] ,"CategoryDetails");
-    // because we want only data of first array
-    setCategoryData(detail[0])
-   getCategoryDetail&&setRefreshing(false) 
-}
-
-const Test = async ()=> {
 let { data: CategoryItems, error } = await supabase
   .from('CategoryItems')
   .select('*')
-          
+  setCategoryData(CategoryItems)
+  getCategoryItemsDetail&&setRefreshing(false) 
   console.log(CategoryItems , "Test");
+
 }
 
 
@@ -94,7 +96,7 @@ const calculateTotalPerc = () => {
   }
 };
 
-
+console.log(categoryData , "HI HEllo");
 
 
 
@@ -104,7 +106,7 @@ const calculateTotalPerc = () => {
     <ScrollView
       
         refreshControl={
-       <RefreshControl refreshing={refreshing} onRefresh={getCategoryDetail} />
+       <RefreshControl refreshing={refreshing} onRefresh={getCategoryItemsDetail} />
     }
       >
      <View style={styles.categoryContainer} >
@@ -154,7 +156,9 @@ const calculateTotalPerc = () => {
 
         <Text style={{ fontSize: moderateScale(20), fontFamily: 'Outfit-Medium',fontSize: 30,marginTop: 10,}}>Item List</Text>
         <View style={{ flex: 1, }}>
-        <ItemList items = {items}  />
+        <ItemList categoryData= {categoryData}  />
+        {/* <ItemList items = {items}  /> */}
+
         </View>
 
         <View style={styles.btnContainer}>
@@ -173,7 +177,7 @@ const calculateTotalPerc = () => {
   )
 }
 
-export default CategoryDetails
+export default CategoryDetailsCopy
 
 const styles = StyleSheet.create({
   container:{

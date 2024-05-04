@@ -15,16 +15,16 @@ const AddNewCategory = ({navigation}) => {
   const [categoryName, setCategoryName] = useState()
   const [totalBudget, setTotalBudget] = useState()
 
-// useEffect(() => {
-//   insertData()
-// }, [])
+useEffect(() => {
+  insertData()
+}, [])
 
 
   // const onCreateCategory = async () => {
 // 
 const insertData = async () => {
   try {
-    let{data:insertedData ,   } = await supabase
+    let{data:insertedData , error   } = await supabase
     .from('Category')
     // these are the things will be present in one row
     .insert([
@@ -53,6 +53,8 @@ const insertData = async () => {
   }
 }
 
+
+     
 
 
 
