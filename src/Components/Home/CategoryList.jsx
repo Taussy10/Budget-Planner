@@ -17,7 +17,7 @@ const CategoryList = ({ categoryData , navigation  }) => {
             icon:category.icon,
             assigned_budget: category.assigned_budget,
              items: category.CategoryItems ,
-            id: category.id 
+            CatId: category.id 
           })}  >
           <View  style={styles.container} >
 

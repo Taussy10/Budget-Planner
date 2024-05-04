@@ -17,7 +17,7 @@ const Home = ({ navigation }) => {
 
  
    useEffect(() => {
-    getCategoryItems()
+    getCategoryData()
     // getCategorydata()
    }, [])
 
@@ -45,7 +45,7 @@ const Home = ({ navigation }) => {
 
   
 // For getting CategoryItems details 
-  const getCategoryItems  = async () => {
+  const getCategoryData  = async () => {
     setRefreshing(true);
       let { data: Category, error } = await supabase
         .from('Category')
@@ -54,7 +54,7 @@ const Home = ({ navigation }) => {
 
       setCategoryData(Category);
       Category&&setRefreshing(false);
-      console.log(Category, "getCategoryItems ");
+      console.log(Category, "getCategoryData ");
 
   };
 
@@ -69,7 +69,7 @@ const Home = ({ navigation }) => {
         // contentCont ainerStyle={styles.scrollView}
         refreshControl={
                           // Here state of Refreshing         Here the function you want to show data through
-          <RefreshControl refreshing={refreshing } onRefresh={ () => getCategoryItems()}  />
+          <RefreshControl refreshing={refreshing } onRefresh={ () => getCategoryData()}  />
         }
       >
      

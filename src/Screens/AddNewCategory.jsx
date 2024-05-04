@@ -15,9 +15,9 @@ const AddNewCategory = ({navigation}) => {
   const [categoryName, setCategoryName] = useState()
   const [totalBudget, setTotalBudget] = useState()
 
-useEffect(() => {
-  insertData()
-}, [])
+// useEffect(() => {
+//   insertData()
+// }, [])
 
 
   // const onCreateCategory = async () => {

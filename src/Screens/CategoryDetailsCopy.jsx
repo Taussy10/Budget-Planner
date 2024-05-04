@@ -11,8 +11,12 @@ import Colors from '../utils/Colors';
 // ()
 const CategoryDetailsCopy = ({route, navigation}) => {
   useEffect(() => {
-    // getCategoryDetail()
-    calculateTotalPerc()
+  getCategoryItemsDetail()
+
+  }, [])
+  useEffect(() => {
+  calculateTotalPerc()
+
   }, [])
 
   const [refreshing, setRefreshing] = useState(false);
@@ -29,10 +33,11 @@ const CategoryDetailsCopy = ({route, navigation}) => {
   const [categoryData, setCategoryData] = useState([])
 
   // name,
-  const { name, color,icon, assigned_budget, items , id } = route.params;
+  const { name, color,icon, assigned_budget, items , CatId } = route.params;
   // const hello  = route.params
   // // console.log(hello , "HEllo");
 
+  // console.log(items.cost , "ITemssf");
 // console.log(items , "HIHELlo");
 // const getCategoryDetail = async ()=> {
 //   setRefreshing(true)
@@ -54,9 +59,7 @@ let { data: CategoryItems, error } = await supabase
   .select('*')
   setCategoryData(CategoryItems)
   getCategoryItemsDetail&&setRefreshing(false) 
-  console.log(CategoryItems , "Test");
-
-}
+  console.log(CategoryItems , "getCategoryItemsDetail");}
 
 
 
@@ -64,7 +67,7 @@ const deleteCategory = async () => {
   const { error } = await supabase
   .from('Category')
   .delete()
-  .eq('id', id)
+  .eq('id', CatId)
     // console.log(error , "error");  
     // This is will delete only when there will be no 
     // categoryItems because Category is attached to categoryItems so you can't 
@@ -81,24 +84,28 @@ const onDeleteCategory = () => {
 
 
 const calculateTotalPerc = () => {
+  setRefreshing(true)
+
   if (items &&  items.length > 0) {
     let total = 0;
     items.forEach(value => {
       total += value?.cost || 0;
     });
     setTotalCost(total);
-
+  console.log(totalCost , "Costw");
     let percentage = (total / assigned_budget) * 100;
     percentage = Math.min(percentage, 100);
     setPercentageTotal(percentage);
   } else {
     console.log("No items are present");
   }
+  //  calculateTotalPerc&&setRefreshing(false) 
+
 };
 
-console.log(categoryData , "HI HEllo");
+// console.log(categoryData , "HI HEllo");
 
-
+// console.log();
 
   return (
     
@@ -163,9 +170,11 @@ console.log(categoryData , "HI HEllo");
 
         <View style={styles.btnContainer}>
       
-      <Pressable   onPress ={ () => navigation.navigate('AddNewItem',{
-        categoryId:id
-      })}> 
+      <Pressable   onPress ={ () => navigation.navigate('AddNewItem'
+      ,{
+        categoryId:CatId
+      }
+      )}> 
             <AntDesign name="pluscircle" size={64} color={Colors.PRIMARY} />
             </Pressable>
             
